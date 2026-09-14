@@ -1,0 +1,6 @@
+{
+  "name": "Audi Team Pulse",
+  "description": "Anonymes, datenschutzkonformes IT-Stimmungsbild mit codiertem Punkte-Algorithmus und Team-Auswertung für AUDI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
