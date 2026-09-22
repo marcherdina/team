@@ -337,3 +337,16 @@ export const QUESTIONS_POOL: Question[] = [
 export const getQuestionById = (id: number): Question | undefined => {
   return QUESTIONS_POOL.find((q) => q.id === id);
 };
+
+/**
+ * Returns a randomized subset of N unique questions from the pool.
+ * Uses Fisher-Yates shuffle to ensure true randomness.
+ */
+export const getRandomQuestions = (count = 8): Question[] => {
+  const pool = [...QUESTIONS_POOL];
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  return pool.slice(0, Math.min(count, pool.length));
+};

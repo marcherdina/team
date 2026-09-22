@@ -8,6 +8,7 @@ interface HeaderProps {
   weekFactors: WeekFactors;
   onOpenAlgorithmModal: () => void;
   teamCount: number;
+  distinctTeamCount?: number;
   savedWeeksCount?: number;
   myLastSecretId?: string;
 }
@@ -18,6 +19,7 @@ export const Header: React.FC<HeaderProps> = ({
   weekFactors,
   onOpenAlgorithmModal,
   teamCount,
+  distinctTeamCount,
   savedWeeksCount,
   myLastSecretId
 }) => {
@@ -78,8 +80,17 @@ export const Header: React.FC<HeaderProps> = ({
               <BarChart3 className={`w-3.5 h-3.5 ${activeTab === 'team' ? 'text-[#f10202]' : 'text-black'}`} />
               <span>Team-Runde</span>
               {teamCount > 0 && (
-                <span className="bg-[#f10202] text-white text-[10px] font-mono font-bold px-1.5 py-0.5">
-                  {teamCount}
+                <span
+                  className={`${
+                    (distinctTeamCount ?? teamCount) >= 5
+                      ? 'bg-[#16a34a]'
+                      : 'bg-[#f10202]'
+                  } text-white text-[10px] font-mono font-bold px-1.5 py-0.5`}
+                  title={`${distinctTeamCount ?? teamCount} unterschiedliche Codes (Mindestens 5 für Auswertung erforderlich)`}
+                >
+                  {(distinctTeamCount ?? teamCount) >= 5
+                    ? (distinctTeamCount ?? teamCount)
+                    : `${distinctTeamCount ?? teamCount}/5`}
                 </span>
               )}
             </button>

@@ -16,7 +16,7 @@ import {
   Check
 } from 'lucide-react';
 import { Question, CustomQuestionVote } from '../types';
-import { QUESTIONS_POOL } from '../data/questions';
+import { QUESTIONS_POOL, getRandomQuestions } from '../data/questions';
 import {
   generateSecretId,
   deriveSecretIdFromInitials,
@@ -39,7 +39,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
   const [step, setStep] = useState<'intro' | 'questions' | 'custom' | 'result'>('intro');
   const [secretId, setSecretId] = useState<string>('');
   const [initials, setInitials] = useState<string>('');
-  const [questionMode, setQuestionMode] = useState<'core' | 'all'>('core');
+  const [questionMode, setQuestionMode] = useState<'random8' | 'all'>('random8');
   const [selectedQuestions, setSelectedQuestions] = useState<Question[]>([]);
   const [currentIdx, setCurrentIdx] = useState<number>(0);
   const [answers, setAnswers] = useState<Record<number, number>>({}); // questionId -> points (1-5)
@@ -66,16 +66,14 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
     initNewSession(questionMode);
   }, []);
 
-  const initNewSession = (mode: 'core' | 'all' = questionMode) => {
+  const initNewSession = (mode: 'random8' | 'all' = questionMode) => {
     const newId = generateSecretId();
     setSecretId(newId);
 
-    // Core set covers the 8 essential sprint questions:
-    // 1: Teamwork, 2: Spaß, 3: Lernmöglichkeiten, 4: Führung, 5: Mission, 6: Moderation, 7: Kaffee, 10: Feierabend
-    const coreIds = [1, 2, 3, 4, 5, 6, 7, 10];
-    const selected = mode === 'core'
-      ? QUESTIONS_POOL.filter((q) => coreIds.includes(q.id))
-      : QUESTIONS_POOL;
+    // Truly randomized selection of 8 questions from the pool of 20 questions
+    const selected = mode === 'random8'
+      ? getRandomQuestions(8)
+      : [...QUESTIONS_POOL];
 
     setSelectedQuestions(selected);
     setCurrentIdx(0);
@@ -194,20 +192,21 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
             </p>
           </div>
 
-          {/* Mode Switch: Core 8 vs All 20 */}
+          {/* Mode Switch: Random 8 vs All 20 */}
           <div className="mb-6 p-1 bg-[#f5f5f5] border border-[#e5e5e5] flex gap-1">
             <button
               onClick={() => {
-                setQuestionMode('core');
-                initNewSession('core');
+                setQuestionMode('random8');
+                initNewSession('random8');
               }}
-              className={`flex-1 py-2 text-[11px] uppercase tracking-wider font-bold transition-all cursor-pointer ${
-                questionMode === 'core'
+              className={`flex-1 py-2 text-[11px] uppercase tracking-wider font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
+                questionMode === 'random8'
                   ? 'bg-white text-black shadow-xs border border-[#e0e0e0]'
                   : 'text-[#666] hover:text-black'
               }`}
             >
-              Kompakt ({8} Kernfragen)
+              <Sparkles className="w-3 h-3 text-[#f10202]" />
+              <span>8 Zufällige Fragen</span>
             </button>
             <button
               onClick={() => {
@@ -223,6 +222,21 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
               Vollständig (Alle 20 Fragen)
             </button>
           </div>
+
+          {questionMode === 'random8' && (
+            <div className="mb-4 flex items-center justify-between text-[11px] text-[#666] font-mono px-1">
+              <span>8 Fragen zufällig aus dem Pool von 20 Fragen gewählt</span>
+              <button
+                type="button"
+                onClick={() => initNewSession('random8')}
+                className="flex items-center gap-1 text-[10px] uppercase font-bold text-black hover:text-[#f10202] transition-colors cursor-pointer"
+                title="8 neue Fragen aus dem Pool zufällig zusammenstellen"
+              >
+                <RotateCcw className="w-2.5 h-2.5 text-[#f10202]" />
+                <span>Fragen neu mischen</span>
+              </button>
+            </div>
+          )}
 
           {/* Namenskürzel (Initials) & Public vs Private ID Concept */}
           <div className="bg-[#f9f9f9] border border-[#e5e5e5] p-5 my-6">

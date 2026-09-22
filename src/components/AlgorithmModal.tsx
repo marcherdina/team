@@ -54,11 +54,17 @@ export const AlgorithmModal: React.FC<AlgorithmModalProps> = ({
           {/* Privacy Guarantee */}
           <div className="p-5 bg-[#f9f9f9] border border-[#e5e5e5] flex items-start gap-3">
             <ShieldCheck className="w-5 h-5 text-[#f10202] shrink-0 mt-0.5" />
-            <div>
+            <div className="space-y-2">
               <h4 className="font-bold text-black text-xs uppercase tracking-wider">100% Anonymität & Zero-Backend</h4>
-              <p className="text-xs text-[#666] mt-1 leading-relaxed">
+              <p className="text-xs text-[#666] leading-relaxed">
                 Diese Web-App benötigt weder eine Datenbank noch ein Backend. Keine IP-Adressen, keine Cookies, keine Benutzerkonten. Alle Berechnungen finden ausschließlich im Browser des Nutzers statt.
               </p>
+              <div className="pt-2 border-t border-[#e5e5e5]">
+                <strong className="text-black text-xs font-bold block mb-0.5">Dynamische Fragen-Auswahl & Anti-Trace Reihenfolge-Mischung:</strong>
+                <p className="text-xs text-[#666] leading-relaxed">
+                  Beim Check-In werden 8 Fragen stets echt zufällig (Fisher-Yates) aus dem gesamten Pool von 20 Fragen gezogen – kein Durchlauf gleicht dem vorherigen. Beim Importieren im Team-Dashboard werden alle Stimmen zudem sofort und dauerhaft deterministisch durchgemischt, sodass die angezeigten Kacheln zu keinem Zeitpunkt in der Reihenfolge des Hinzufügens stehen. Vor Erreichen von 5 unterschiedlichen Codes sind alle IDs und Werte vollständig maskiert.
+                </p>
+              </div>
             </div>
           </div>
 

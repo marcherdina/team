@@ -124,10 +124,46 @@ export default function App() {
     }
   }, [teamCodes]);
 
+  // Calculate count of unique valid submissions for the threshold & header
+  const distinctTeamCount = useMemo(() => {
+    const seenTokens = new Set<string>();
+    const seenSecretIds = new Set<string>();
+    let count = 0;
+
+    for (const code of teamCodes) {
+      const decoded = decodeSubmission(code, weekFactors);
+      if (!decoded.isValid) continue;
+
+      const normToken = decoded.rawCode.trim().toUpperCase();
+      const normSecretId =
+        decoded.secretId && decoded.secretId !== 'UNGÜLTIG'
+          ? decoded.secretId.trim().toUpperCase()
+          : '';
+
+      if (seenTokens.has(normToken) || (normSecretId && seenSecretIds.has(normSecretId))) {
+        continue;
+      }
+
+      seenTokens.add(normToken);
+      if (normSecretId) {
+        seenSecretIds.add(normSecretId);
+      }
+      count++;
+    }
+
+    return count;
+  }, [teamCodes, weekFactors]);
+
   const handleAddCode = (code: string) => {
     const trimmed = code.trim();
     if (!trimmed) return;
-    setTeamCodes((prev) => [trimmed, ...prev.filter((c) => c !== trimmed)]);
+    setTeamCodes((prev) => [trimmed, ...prev]);
+  };
+
+  const handleAddCodes = (codes: string[]) => {
+    const cleaned = codes.map((c) => c.trim()).filter(Boolean);
+    if (cleaned.length === 0) return;
+    setTeamCodes((prev) => [...cleaned, ...prev]);
   };
 
   const handleRemoveCode = (index: number) => {
@@ -169,6 +205,7 @@ export default function App() {
         weekFactors={weekFactors}
         onOpenAlgorithmModal={() => setIsAlgorithmModalOpen(true)}
         teamCount={teamCodes.length}
+        distinctTeamCount={distinctTeamCount}
         savedWeeksCount={savedWeeklyCodes.length}
         myLastSecretId={myLastSecretId}
       />
@@ -187,6 +224,7 @@ export default function App() {
             weekFactors={weekFactors}
             teamCodes={teamCodes}
             onAddCode={handleAddCode}
+            onAddCodes={handleAddCodes}
             onRemoveCode={handleRemoveCode}
             onClearAll={handleClearAll}
             onLoadSampleData={handleLoadSampleData}
