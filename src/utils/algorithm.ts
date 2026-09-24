@@ -37,7 +37,7 @@ export function getCurrentWeekFactors(targetDate = new Date()): WeekFactors {
   const mondayDate = monday.getDate();
   const mondayFullDate = monday.toISOString().split('T')[0];
 
-  // Deterministic factors for the secret Audi algorithm
+  // Deterministic factors for the secret pulse algorithm
   const kwFactor = 6 + (kw % 7); // between 6 and 12
   const mondayOffset = (mondayDate * 3) % 40;
   const parityBonus = kw % 2 === 0 ? 36 : -14;
@@ -56,31 +56,31 @@ export function getCurrentWeekFactors(targetDate = new Date()): WeekFactors {
 }
 
 /**
- * Generates an Audi-style 4-character Secret ID (e.g. R824, A619, Q788, TT42)
+ * Generates a 4-character Secret ID (e.g. X824, P619, T788, Z942)
  */
 export function generateSecretId(): string {
-  const prefixes = ['R8', 'RS', 'A6', 'A4', 'Q7', 'Q5', 'TT', 'E4', 'GT', 'S3', 'Q8', 'A8'];
+  const prefixes = ['P1', 'X8', 'N4', 'K7', 'T2', 'Z9', 'V5', 'M3', 'D6', 'L8', 'C4', 'S7'];
   const prefix = prefixes[Math.floor(Math.random() * prefixes.length)];
   const num = Math.floor(10 + Math.random() * 90); // 10..99
   return `${prefix}${num}`;
 }
 
 /**
- * Deterministically derives a Private Secret ID from initials (e.g. "MM" -> "RS24")
+ * Deterministically derives a Private Secret ID from initials (e.g. "MM" -> "X824")
  * based on weekly factors and a salt.
  * In this way, when user sends their public code with "MM" in Teams, the final team view
- * recalculates "MM" back into their Private ID ("#RS24") so nobody in the meeting knows
+ * recalculates "MM" back into their Private ID ("#X824") so nobody in the meeting knows
  * which row belongs to whom, except the participant who saw their Private ID after the survey!
  */
 export function deriveSecretIdFromInitials(initials: string, weekFactors = getCurrentWeekFactors()): string {
   const clean = initials.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
   if (!clean) return generateSecretId();
 
-  const prefixes = ['RS', 'R8', 'A6', 'GT', 'Q7', 'S3', 'TT', 'Q8', 'A4', 'E4', 'SQ', 'ET'];
+  const prefixes = ['P1', 'X8', 'N4', 'K7', 'T2', 'Z9', 'V5', 'M3', 'D6', 'L8', 'C4', 'S7'];
   
   // 32-bit deterministic FNV-1a hash
   let hash = 2166136261;
-  const seed = `${clean}_KW${weekFactors.kw}_${weekFactors.year}_AudiSecretSalt_2026`;
+  const seed = `${clean}_KW${weekFactors.kw}_${weekFactors.year}_TeamSecretSalt_2026`;
   for (let i = 0; i < seed.length; i++) {
     hash ^= seed.charCodeAt(i);
     hash = Math.imul(hash, 16777619);
@@ -133,15 +133,16 @@ export function extractTokensFromText(text: string): string[] {
 
 /**
  * Encodes answers array into an ultra-compact Base-36 string (5-10 characters).
- * Uses a base-6 positional digit for each of the 20 questions:
- * value = sum_{qId=1..20} (points * 6^(qId - 1))
+ * Uses a base-6 positional digit for each of the questions in QUESTIONS_POOL:
+ * value = sum_{qId=1..N} (points * 6^(qId - 1))
  */
 export function encodeAnswersBase36(answers: QuestionAnswerPair[]): string {
   let val = 0n;
   const map = new Map<number, bigint>();
   answers.forEach((a) => map.set(a.questionId, BigInt(Math.max(1, Math.min(5, a.points)))));
 
-  for (let qId = 1; qId <= 20; qId++) {
+  const totalQuestions = Math.max(QUESTIONS_POOL.length, 25);
+  for (let qId = 1; qId <= totalQuestions; qId++) {
     const pt = map.get(qId) || 0n;
     if (pt > 0n) {
       val += pt * (6n ** BigInt(qId - 1));
@@ -177,7 +178,8 @@ export function parseBigInt36(str: string): bigint {
 export function decodeAnswersBase36(encodedStr: string): QuestionAnswerPair[] {
   let val = parseBigInt36(encodedStr);
   const result: QuestionAnswerPair[] = [];
-  for (let qId = 1; qId <= 20; qId++) {
+  const totalQuestions = Math.max(QUESTIONS_POOL.length, 25);
+  for (let qId = 1; qId <= totalQuestions; qId++) {
     const pt = Number(val % 6n);
     val = val / 6n;
     if (pt >= 1 && pt <= 5) {
@@ -281,11 +283,11 @@ export function decodeCommentSafe(encoded: string): string {
 }
 
 /**
- * Encodes answers into the secret Audi Weekly Number and complete token
+ * Encodes answers into the secret Team Weekly Number and complete token
  * including exact Question IDs and optional Custom Question.
  * Supports Namenskürzel (Initials, e.g. "MM"):
  * - Public token: e.g. 397-MM-u4ynt-c5_m1 (what the user sends in Teams)
- * - Private ID: e.g. RS24 (what the user remembers and what the dashboard re-derives)
+ * - Private ID: e.g. X824 (what the user remembers and what the dashboard re-derives)
  */
 export function encodeAnswers(
   secretIdOrOptions: string | { initials?: string; secretId?: string },
@@ -548,10 +550,11 @@ function parseQuestionAnswerString(str: string): QuestionAnswerPair[] {
   // Match "q01v5" or "01v5" or "q1v5"
   const qvRegex = /q?(\d{1,2})v([1-5])/gi;
   let match: RegExpExecArray | null;
+  const maxQId = Math.max(QUESTIONS_POOL.length, 30);
   while ((match = qvRegex.exec(str)) !== null) {
     const qId = parseInt(match[1], 10);
     const pts = parseInt(match[2], 10);
-    if (qId >= 1 && qId <= 20) {
+    if (qId >= 1 && qId <= maxQId) {
       result.push({ questionId: qId, points: pts });
     }
   }
@@ -563,7 +566,7 @@ function parseQuestionAnswerString(str: string): QuestionAnswerPair[] {
     for (let i = 0; i < str.length; i += 3) {
       const qId = parseInt(str.substring(i, i + 2), 10);
       const pts = parseInt(str.substring(i + 2, i + 3), 10);
-      if (qId >= 1 && qId <= 20 && pts >= 1 && pts <= 5) {
+      if (qId >= 1 && qId <= maxQId && pts >= 1 && pts <= 5) {
         result.push({ questionId: qId, points: pts });
       }
     }

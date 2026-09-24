@@ -15,7 +15,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'checkin' | 'team' | 'analyze'>('checkin');
   const [isAlgorithmModalOpen, setIsAlgorithmModalOpen] = useState(false);
   const [myLastSecretId, setMyLastSecretId] = useState<string | undefined>(() => {
-    return localStorage.getItem('audi_my_secret_id') || undefined;
+    return localStorage.getItem('tp_my_secret_id') || localStorage.getItem('audi_my_secret_id') || undefined;
   });
 
   // Calculate current week factors
@@ -24,7 +24,7 @@ export default function App() {
   // Saved Weekly Codes for Longitudinal Analytics
   const [savedWeeklyCodes, setSavedWeeklyCodes] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('audi_saved_weekly_codes');
+      const saved = localStorage.getItem('tp_saved_weekly_codes') || localStorage.getItem('audi_saved_weekly_codes');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) return parsed;
@@ -39,9 +39,9 @@ export default function App() {
   useEffect(() => {
     try {
       if (savedWeeklyCodes.length === 0) {
-        localStorage.removeItem('audi_saved_weekly_codes');
+        localStorage.removeItem('tp_saved_weekly_codes');
       } else {
-        localStorage.setItem('audi_saved_weekly_codes', JSON.stringify(savedWeeklyCodes));
+        localStorage.setItem('tp_saved_weekly_codes', JSON.stringify(savedWeeklyCodes));
       }
     } catch {
       // ignore
@@ -61,7 +61,7 @@ export default function App() {
 
   const handleClearAllWeeklyCodes = () => {
     setSavedWeeklyCodes([]);
-    localStorage.removeItem('audi_saved_weekly_codes');
+    localStorage.removeItem('tp_saved_weekly_codes');
   };
 
   const handleLoadWeeklySampleData = () => {
@@ -80,7 +80,7 @@ export default function App() {
   // Team codes state with localStorage fallback (cleans up any legacy sample data)
   const [teamCodes, setTeamCodes] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('audi_team_codes');
+      const saved = localStorage.getItem('tp_team_codes') || localStorage.getItem('audi_team_codes');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
@@ -91,6 +91,7 @@ export default function App() {
               (c.includes('-R824-') || c.includes('-A619-') || c.includes('-B302-'))
           );
           if (isSample) {
+            localStorage.removeItem('tp_team_codes');
             localStorage.removeItem('audi_team_codes');
             return [];
           }
@@ -108,16 +109,16 @@ export default function App() {
   useEffect(() => {
     try {
       if (teamCodes.length === 0) {
-        localStorage.removeItem('audi_team_codes');
+        localStorage.removeItem('tp_team_codes');
         return;
       }
       const isSample = teamCodes.some(
         (c) => typeof c === 'string' && (c.includes('-R824-') || c.includes('-A619-'))
       );
       if (!isSample) {
-        localStorage.setItem('audi_team_codes', JSON.stringify(teamCodes));
+        localStorage.setItem('tp_team_codes', JSON.stringify(teamCodes));
       } else {
-        localStorage.removeItem('audi_team_codes');
+        localStorage.removeItem('tp_team_codes');
       }
     } catch {
       // ignore
@@ -172,6 +173,7 @@ export default function App() {
 
   const handleClearAll = () => {
     setTeamCodes([]);
+    localStorage.removeItem('tp_team_codes');
     localStorage.removeItem('audi_team_codes');
   };
 
@@ -185,7 +187,7 @@ export default function App() {
     const decoded = decodeSubmission(fullToken, weekFactors);
     if (decoded.isValid) {
       setMyLastSecretId(decoded.secretId);
-      localStorage.setItem('audi_my_secret_id', decoded.secretId);
+      localStorage.setItem('tp_my_secret_id', decoded.secretId);
       // Auto-add user's token to the team list
       setTeamCodes((prev) => [fullToken, ...prev.filter((c) => c !== fullToken)]);
     }
@@ -197,7 +199,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col font-sans border-t-4 border-[#f10202] selection:bg-[#f10202] selection:text-white">
+    <div className="min-h-screen bg-[#ffffff] text-[#000000] flex flex-col font-sans border-t-4 border-black selection:bg-black selection:text-white">
       {/* Header */}
       <Header
         activeTab={activeTab}
@@ -249,7 +251,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <span className="font-bold text-black tracking-[0.15em]">
-              © Audi IT // Internal Tooling
+              © Team Pulse // Internal Tooling
             </span>
             <span className="text-[#ccc]">•</span>
             <span>KW {weekFactors.kw} ({weekFactors.year})</span>

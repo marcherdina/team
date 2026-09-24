@@ -27,9 +27,9 @@ export const AlgorithmModal: React.FC<AlgorithmModalProps> = ({
         <div className="flex items-start justify-between pb-4 border-b border-[#e5e5e5]">
           <div>
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#f10202] rounded-full"></div>
-              <span className="text-xs uppercase font-bold tracking-widest text-[#f10202]">
-                AUDI IT Architecture
+              <div className="w-2 h-2 bg-black rounded-full"></div>
+              <span className="text-xs uppercase font-bold tracking-widest text-black">
+                Team Pulse Architecture
               </span>
               <span className="text-[10px] uppercase font-mono font-bold bg-black text-white px-2 py-0.5 ml-2">
                 KW {weekFactors.kw} • {weekFactors.year}
@@ -53,7 +53,7 @@ export const AlgorithmModal: React.FC<AlgorithmModalProps> = ({
           
           {/* Privacy Guarantee */}
           <div className="p-5 bg-[#f9f9f9] border border-[#e5e5e5] flex items-start gap-3">
-            <ShieldCheck className="w-5 h-5 text-[#f10202] shrink-0 mt-0.5" />
+            <ShieldCheck className="w-5 h-5 text-black shrink-0 mt-0.5" />
             <div className="space-y-2">
               <h4 className="font-bold text-black text-xs uppercase tracking-wider">100% Anonymität & Zero-Backend</h4>
               <p className="text-xs text-[#666] leading-relaxed">
@@ -62,7 +62,7 @@ export const AlgorithmModal: React.FC<AlgorithmModalProps> = ({
               <div className="pt-2 border-t border-[#e5e5e5]">
                 <strong className="text-black text-xs font-bold block mb-0.5">Dynamische Fragen-Auswahl & Anti-Trace Reihenfolge-Mischung:</strong>
                 <p className="text-xs text-[#666] leading-relaxed">
-                  Beim Check-In werden 8 Fragen stets echt zufällig (Fisher-Yates) aus dem gesamten Pool von 20 Fragen gezogen – kein Durchlauf gleicht dem vorherigen. Beim Importieren im Team-Dashboard werden alle Stimmen zudem sofort und dauerhaft deterministisch durchgemischt, sodass die angezeigten Kacheln zu keinem Zeitpunkt in der Reihenfolge des Hinzufügens stehen. Vor Erreichen von 5 unterschiedlichen Codes sind alle IDs und Werte vollständig maskiert.
+                  Beim Check-In werden 8 Fragen stets echt zufällig (Fisher-Yates) aus dem gesamten Fragen-Pool gezogen – kein Durchlauf gleicht dem vorherigen. Beim Importieren im Team-Dashboard werden alle Stimmen zudem sofort und dauerhaft deterministisch durchgemischt, sodass die angezeigten Kacheln zu keinem Zeitpunkt in der Reihenfolge des Hinzufügens stehen. Vor Erreichen von 5 unterschiedlichen Codes sind alle IDs und Werte vollständig maskiert.
                 </p>
               </div>
             </div>
@@ -71,12 +71,12 @@ export const AlgorithmModal: React.FC<AlgorithmModalProps> = ({
           {/* Mathematical Formula */}
           <div>
             <h4 className="font-bold text-black text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-              <Cpu className="w-4 h-4 text-[#f10202]" />
+              <Cpu className="w-4 h-4 text-black" />
               Die mathematische Codierungs-Formel (KW {weekFactors.kw})
             </h4>
             <div className="bg-black text-white p-5 border border-black font-mono text-xs overflow-x-auto space-y-1.5">
-              <div className="text-[#888]">// 1. Punkte-Summe aus den 6 Antworten (je 1 bis 5)</div>
-              <div className="text-[#f10202]">S = Summe(Punkte 1..6) ∈ [6, 30]</div>
+              <div className="text-[#888]">// 1. Punkte-Summe aus den Antworten (je 1 bis 5)</div>
+              <div className="text-white font-bold">S = Summe(Punkte 1..N)</div>
               <div className="text-[#888] mt-2">// 2. Wöchentliche dynamische Faktoren</div>
               <div>KW_Faktor = {weekFactors.kwFactor} <span className="text-[#888]">(basiert auf Kalenderwoche {weekFactors.kw})</span></div>
               <div>Montag_Offset = {weekFactors.mondayOffset} <span className="text-[#888]">(Montag, {weekFactors.mondayDate}. des Monats)</span></div>
@@ -92,7 +92,7 @@ export const AlgorithmModal: React.FC<AlgorithmModalProps> = ({
           {/* Reversibility & Secret ID */}
           <div>
             <h4 className="font-bold text-black text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
-              <Lock className="w-4 h-4 text-[#f10202]" />
+              <Lock className="w-4 h-4 text-black" />
               Reversible Decodierung in der Teamrunde
             </h4>
             <p className="text-xs text-[#666]">
@@ -102,7 +102,7 @@ export const AlgorithmModal: React.FC<AlgorithmModalProps> = ({
               S = (Zahl - Montag_Offset - Parity_Bonus - Basis_Offset) / KW_Faktor
             </div>
             <p className="text-xs text-[#666] mt-2 leading-relaxed">
-              Das ultra-kompakte Token-Format <code className="font-mono text-black font-bold">397-R824-u4ynt[-c5_m1]</code> (nur ~14–22 Zeichen) überträgt die Secret ID <strong className="text-black">#R824</strong>, die mathematisch in Base-36 komprimierten Frage-IDs samt Bewertungen und optional die spontane Custom-Teams-Frage. Eingegebene Kommentare werden dabei ohne Klartext-Wörter in unlesbare 2-Zeichen-Codes bzw. Base64url verschlüsselt.
+              Das ultra-kompakte Token-Format <code className="font-mono text-black font-bold">397-X824-u4ynt[-c5_m1]</code> (nur ~14–22 Zeichen) überträgt die Secret ID <strong className="text-black">#X824</strong>, die mathematisch in Base-36 komprimierten Frage-IDs samt Bewertungen und optional die spontane Custom-Teams-Frage. Eingegebene Kommentare werden dabei ohne Klartext-Wörter in unlesbare 2-Zeichen-Codes bzw. Base64url verschlüsselt.
             </p>
           </div>
 

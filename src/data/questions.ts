@@ -12,7 +12,7 @@ export const CATEGORY_META: Record<
   culture: {
     label: 'Spaß & Teamkultur',
     description: 'Freude an der Arbeit, Motivation & Wertschätzung',
-    color: '#f10202'
+    color: '#222222'
   },
   learning: {
     label: 'Lernmöglichkeiten & I&I',
@@ -47,7 +47,7 @@ export const CATEGORY_META: Record<
   team: {
     label: 'Organisation & Rollen',
     description: 'Moderation und Verantwortungsübernahme im Team',
-    color: '#f10202'
+    color: '#111111'
   }
 };
 
@@ -311,7 +311,7 @@ export const QUESTIONS_POOL: Question[] = [
     categoryLabel: 'Mission & Ziele',
     tag: 'Kunden-Impact',
     options: [
-      { text: 'Stark spürbar – sichtbarer Nutzen für Audi und Nutzer', points: 5 },
+      { text: 'Stark spürbar – sichtbarer Nutzen für Team und Nutzer', points: 5 },
       { text: 'Guter Mehrwert – Fortschritt auf der Roadmap geliefert', points: 4 },
       { text: 'Teilweise – viele interne Tasks ohne direkten Bezug', points: 3 },
       { text: 'Gering – viel Formalismus und wenig spürbarer Output', points: 2 },
@@ -330,6 +330,20 @@ export const QUESTIONS_POOL: Question[] = [
       { text: 'Nach Wartezeit – Unterstützung kam mit Verzögerung', points: 3 },
       { text: 'Mühsam – man musste mehrfach nachhaken', points: 2 },
       { text: 'Allein gelassen – niemand fühlte sich zuständig', points: 1 }
+    ]
+  },
+  {
+    id: 21,
+    title: 'Wie viel % deiner Arbeitszeit investierst du aktuell für Softwareentwicklung, Qualitätssicherung & Architektur in deinem Produkt?',
+    category: 'tech',
+    categoryLabel: 'Technologie & Qualität',
+    tag: 'Dev & Architektur',
+    options: [
+      { text: '>70% – überwiegender Fokus auf Code, Tests & Architektur', points: 5 },
+      { text: '50–70% – solide Mehrheit für Entwicklung & Qualität', points: 4 },
+      { text: '30–50% – ausgewogene Zeitverteilung (Dev vs. Organisation/Meetings)', points: 3 },
+      { text: '15–30% – viel administrativer Overhead & zeitraubende Abstimmungen', points: 2 },
+      { text: '<15% – kaum Zeit für Softwareentwicklung, QA oder Architektur', points: 1 }
     ]
   }
 ];

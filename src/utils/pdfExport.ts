@@ -18,8 +18,8 @@ export function generateTeamPdfReport(
   const contentWidth = pageWidth - margin * 2;
   let y = 20;
 
-  // 1. Top Header Accent (Audi Red Bar)
-  doc.setFillColor(241, 2, 2); // Audi Red #f10202
+  // 1. Top Header Accent (Dark Bar)
+  doc.setFillColor(0, 0, 0); // Modern Black #000000
   doc.rect(margin, y, contentWidth, 2, 'F');
   y += 8;
 
@@ -27,11 +27,11 @@ export function generateTeamPdfReport(
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
   doc.setTextColor(100, 100, 100);
-  doc.text('AUDI IT • TEAMRUNDE AGIL & ANONYM', margin, y);
+  doc.text('TEAM PULSE • TEAMRUNDE AGIL & ANONYM', margin, y);
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(8);
-  doc.setTextColor(241, 2, 2);
+  doc.setTextColor(0, 0, 0);
   doc.text(`KW ${weekFactors.kw} / ${weekFactors.year}`, pageWidth - margin, y, { align: 'right' });
   y += 7;
 
@@ -247,7 +247,7 @@ export function generateTeamPdfReport(
 
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(7);
-      doc.setTextColor(241, 2, 2);
+      doc.setTextColor(0, 0, 0);
       doc.text(act.potentialImpact, pageWidth - margin - 4, y + 4.5, { align: 'right' });
 
       y += 15;
@@ -262,7 +262,7 @@ export function generateTeamPdfReport(
     doc.setFontSize(7);
     doc.setTextColor(140, 140, 140);
     doc.text(
-      'AUDI AG • Vertraulicher Teamrunden-Report • Anonymisiert & DSGVO-konform',
+      'TEAM PULSE • Vertraulicher Teamrunden-Report • Anonymisiert & DSGVO-konform',
       margin,
       288
     );
@@ -270,5 +270,5 @@ export function generateTeamPdfReport(
   }
 
   // Save the PDF
-  doc.save(`Audi-IT-Team-Puls-KW${weekFactors.kw}-${weekFactors.year}.pdf`);
+  doc.save(`Team-Puls-KW${weekFactors.kw}-${weekFactors.year}.pdf`);
 }

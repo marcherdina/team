@@ -67,7 +67,7 @@ function fromBase64Url(str: string): string {
 
 /**
  * Encodes a week's analytics into a shareable, tamper-evident weekly result code.
- * Example format: AUDI-W37-2026-<base64url>
+ * Example format: PULSE-W37-2026-<base64url>
  */
 export function encodeWeeklyResultCode(
   analytics: TeamAnalytics,
@@ -100,7 +100,7 @@ export function encodeWeeklyResultCode(
   };
 
   const encoded = toBase64Url(JSON.stringify(payload));
-  return `AUDI-W${weekFactors.kw}-${weekFactors.year}-${encoded}`;
+  return `PULSE-W${weekFactors.kw}-${weekFactors.year}-${encoded}`;
 }
 
 /**
@@ -110,8 +110,8 @@ export function decodeWeeklyResultCode(rawCode: string): WeeklyResult | null {
   const clean = rawCode.trim();
   if (!clean) return null;
 
-  // Match token pattern: AUDI-W{kw}-{year}-{payload} or similar
-  const match = clean.match(/(?:AUDI-)?(?:W|KW)(\d{1,2})-(\d{4})-([A-Za-z0-9_-]+)/i);
+  // Match token pattern: PULSE-W{kw}-{year}-{payload} or legacy AUDI-W...
+  const match = clean.match(/(?:AUDI-|PULSE-)?(?:W|KW)(\d{1,2})-(\d{4})-([A-Za-z0-9_-]+)/i);
   if (!match) return null;
 
   const kw = parseInt(match[1], 10);
@@ -179,7 +179,7 @@ export function extractWeeklyTokensFromText(text: string): string[] {
     const line = rawLine.trim();
     if (!line) continue;
 
-    const match = line.match(/\b((?:AUDI-)?(?:W|KW)\d{1,2}-\d{4}-[A-Za-z0-9_-]+)\b/i);
+    const match = line.match(/\b((?:AUDI-|PULSE-)?(?:W|KW)\d{1,2}-\d{4}-[A-Za-z0-9_-]+)\b/i);
     if (match) {
       tokens.push(match[1]);
     }
@@ -291,6 +291,6 @@ export function generateSampleWeeklyHistory(): string[] {
     };
 
     const encoded = toBase64Url(JSON.stringify(payload));
-    return `AUDI-W${cfg.w}-${currentYear}-${encoded}`;
+    return `PULSE-W${cfg.w}-${currentYear}-${encoded}`;
   });
 }

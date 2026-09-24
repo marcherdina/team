@@ -422,7 +422,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
   const handleCopySummary = () => {
     if (!analytics) return;
 
-    let text = `📊 **AUDI IT Team Pulse – KW ${weekFactors.kw}**\n` +
+    let text = `📊 **Team Pulse – KW ${weekFactors.kw}**\n` +
       `• Gesamt-Stimmung: ${analytics.overallPercentage}% (Ø ${analytics.averageScore} / 5.0)\n` +
       `• Feedback-Status: ${analytics.healthVerdict.title}\n` +
       `• Teilnahme: ${analytics.count} Kollegen (100% anonym)\n\n` +
@@ -446,7 +446,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
       }
     }
 
-    text += `\n\n*Ausgewertet via Audi Team Pulse*`;
+    text += `\n\n*Ausgewertet via Team Pulse*`;
 
     navigator.clipboard.writeText(text);
     setCopiedSummary(true);
@@ -480,9 +480,9 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pb-6 border-b border-[#e5e5e5]">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <div className="w-2 h-2 bg-[#f10202] rounded-full"></div>
+              <div className="w-2 h-2 bg-black rounded-full"></div>
               <span className="text-xs uppercase font-bold tracking-widest text-black">
-                Audi IT Teamrunde
+                Team Pulse Teamrunde
               </span>
               <span className="text-xs font-mono font-bold text-[#666]">
                 • KW {weekFactors.kw}
@@ -506,7 +506,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
               }`}
               title="Ergebnisbericht als PDF exportieren"
             >
-              <Download className="w-3.5 h-3.5 text-[#f10202]" />
+              <Download className="w-3.5 h-3.5 text-black" />
               <span>{isExportingPdf ? 'Exportiere...' : 'PDF Export'}</span>
             </button>
 
@@ -529,7 +529,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                 </>
               ) : (
                 <>
-                  <TrendingUp className="w-3.5 h-3.5 text-[#f10202]" />
+                  <TrendingUp className="w-3.5 h-3.5 text-black" />
                   <span>Wochen-Code</span>
                 </>
               )}
@@ -541,12 +541,12 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
               onClick={handleGenerateAiPlan}
               className={`px-3.5 py-2 text-xs uppercase tracking-wider font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                 analytics
-                  ? 'bg-[#f10202] hover:bg-[#d00202] text-white'
+                  ? 'bg-black hover:bg-[#222] text-white'
                   : 'bg-[#e5e5e5] text-[#999] cursor-not-allowed'
               }`}
               title="KI Analyse"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <Sparkles className="w-3.5 h-3.5 text-white" />
               <span>KI</span>
             </button>
 
@@ -573,7 +573,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
               <button
                 id="clear-all-btn"
                 onClick={onClearAll}
-                className="px-3.5 py-2 border border-[#e5e5e5] hover:border-[#f10202] hover:text-[#f10202] text-xs uppercase tracking-wider font-bold text-[#666] bg-white transition-all cursor-pointer"
+                className="px-3.5 py-2 border border-[#e5e5e5] hover:border-black hover:text-black text-xs uppercase tracking-wider font-bold text-[#666] bg-white transition-all cursor-pointer"
                 title="Alle eingetragenen Codes zurücksetzen"
               >
                 Zurücksetzen
@@ -597,7 +597,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
           <div className="mt-4 pt-4 border-t border-[#e5e5e5] flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-[#fafafa] p-3.5 border border-[#eee]">
             <div className="flex-1 min-w-0">
               <div className="flex items-center gap-2">
-                <TrendingUp className="w-3.5 h-3.5 text-[#f10202]" />
+                <TrendingUp className="w-3.5 h-3.5 text-black" />
                 <span className="text-[11px] font-bold uppercase tracking-wider text-black">
                   Wochen-Ergebniscode für KW {weekFactors.kw} ({weekFactors.year})
                 </span>
@@ -638,7 +638,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
         <div className="mt-5 p-4 sm:p-5 bg-[#fafafa] border border-[#e5e5e5]">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#e5e5e5]">
             <div className="flex items-center gap-2">
-              <Plus className="w-4 h-4 text-[#f10202]" />
+              <Plus className="w-4 h-4 text-black" />
               <h3 className="text-xs uppercase font-bold tracking-wider text-black">
                 Teams-Codes gesammelt einfügen (Zeile für Zeile)
               </h3>
@@ -679,8 +679,8 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
             />
 
             {inputError && (
-              <div className="text-xs text-[#f10202] font-mono flex items-center gap-1.5">
-                <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
+              <div className="text-xs text-black font-mono flex items-center gap-1.5 p-2 bg-[#f0f0f0] border border-[#ccc]">
+                <AlertTriangle className="w-3.5 h-3.5 shrink-0 text-black" />
                 <span>{inputError}</span>
               </div>
             )}
@@ -727,7 +727,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                       : 'bg-[#e5e5e5] text-[#999] cursor-not-allowed'
                   }`}
                 >
-                  <Plus className="w-3.5 h-3.5 text-[#f10202]" />
+                  <Plus className="w-3.5 h-3.5 text-white" />
                   <span>
                     {recognizedCount > 0
                       ? `Alle ${recognizedCount} Codes importieren`
@@ -796,12 +796,12 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                   <div className="text-5xl sm:text-6xl font-light font-mono tracking-tight text-white">
                     {analytics.overallPercentage}%
                   </div>
-                  <div className="text-lg font-light text-[#f10202] font-mono">
+                  <div className="text-lg font-light text-zinc-300 font-mono">
                     Ø {analytics.averageScore} / 5.0
                   </div>
                 </div>
                 <div className="text-xs text-[#aaa] mt-2 flex items-center gap-1.5">
-                  <div className="w-1.5 h-1.5 bg-[#f10202] rounded-full"></div>
+                  <div className="w-1.5 h-1.5 bg-white rounded-full"></div>
                   <span>{analytics.healthVerdict.title}</span>
                 </div>
               </div>
@@ -842,8 +842,8 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                     <span className="text-white font-bold">{analytics.distribution.neutral}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-[#f10202]">Kritisch (&lt;3.0)</span>
-                    <span className="text-[#f10202] font-bold">
+                    <span className="text-zinc-400">Kritisch (&lt;3.0)</span>
+                    <span className="text-white font-bold">
                       {analytics.distribution.critical + analytics.distribution.stressed}
                     </span>
                   </div>
@@ -857,7 +857,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
             <div className="bg-white border border-[#e5e5e5] p-6">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#e5e5e5]">
                 <div className="flex items-center gap-2">
-                  <MessageSquare className="w-4 h-4 text-[#f10202]" />
+                  <MessageSquare className="w-4 h-4 text-black" />
                   <h3 className="text-xs uppercase font-bold tracking-widest text-black">
                     Custom Frage (Teams-Chat)
                   </h3>
@@ -873,7 +873,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
               {/* Progress bar */}
               <div className="h-1.5 w-full bg-[#f0f0f0] my-4 overflow-hidden">
                 <div
-                  className="h-full bg-[#f10202]"
+                  className="h-full bg-black"
                   style={{ width: `${analytics.customQuestionStats.percentage}%` }}
                 />
               </div>
@@ -906,7 +906,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#e5e5e5]">
               <div>
                 <div className="flex items-center gap-2">
-                  <div className="w-1.5 h-1.5 bg-[#f10202] rounded-full"></div>
+                  <div className="w-1.5 h-1.5 bg-black rounded-full"></div>
                   <h3 className="text-xs uppercase font-bold tracking-widest text-black">
                     Fragen-Detailanalyse (ID-Zuordnung)
                   </h3>
@@ -959,7 +959,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                       </span>
                       <div>
                         <div className="flex items-center gap-2 mb-0.5">
-                          <span className="text-[10px] uppercase font-bold tracking-wider text-[#f10202]">
+                          <span className="text-[10px] uppercase font-bold tracking-wider text-black">
                             {qs.tag}
                           </span>
                           <span className="text-[10px] text-[#999]">
@@ -977,13 +977,13 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                       <div className="w-28 sm:w-36">
                         <div className="flex items-center justify-between text-[11px] font-mono mb-1">
                           <span className="text-[#888]">{qs.percentage}%</span>
-                          <span className={`font-bold ${isCritical ? 'text-[#f10202]' : 'text-black'}`}>
+                          <span className="font-bold text-black">
                             Ø {qs.averageScore}
                           </span>
                         </div>
                         <div className="h-1.5 w-full bg-[#f0f0f0] overflow-hidden">
                           <div
-                            className={`h-full ${isCritical ? 'bg-[#f10202]' : isTop ? 'bg-black' : 'bg-[#444]'}`}
+                            className={`h-full ${isCritical ? 'bg-[#666]' : isTop ? 'bg-black' : 'bg-[#333]'}`}
                             style={{ width: `${qs.percentage}%` }}
                           />
                         </div>
@@ -991,7 +991,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
 
                       {/* Small distribution dots */}
                       <div className="hidden sm:flex items-center gap-1 text-[10px] font-mono text-[#888] pl-3 border-l border-[#e5e5e5]">
-                        <span title="Antworten 1 (Negativ)" className="text-[#f10202]">{qs.distribution[0]}</span>
+                        <span title="Antworten 1 (Negativ)" className="text-[#555] font-bold">{qs.distribution[0]}</span>
                         <span>/</span>
                         <span title="Antworten 5 (Positiv)" className="text-black font-bold">{qs.distribution[4]}</span>
                       </div>
@@ -1047,7 +1047,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                             Private ID
                           </span>
                         )}
-                        <span className="ml-1 font-bold text-[#f10202]">
+                        <span className="ml-1 font-bold text-black">
                           Ø {entry.averageScore.toFixed(1)}
                         </span>
                         {entry.customQuestion && (
@@ -1060,7 +1060,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                   </div>
                   <button
                     onClick={() => onRemoveCode(entry.originalIndex)}
-                    className="text-[#bbb] hover:text-[#f10202] transition-colors p-1 cursor-pointer"
+                    className="text-[#bbb] hover:text-black transition-colors p-1 cursor-pointer"
                     title="Code entfernen"
                   >
                     <Trash2 className="w-3 h-3" />
@@ -1100,12 +1100,12 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
               {/* Shield Header */}
               <div className="flex items-center gap-2 mb-3">
                 <div className="w-6 h-6 bg-black text-white flex items-center justify-center">
-                  <Lock className="w-3.5 h-3.5 text-[#f10202]" />
+                  <Lock className="w-3.5 h-3.5 text-white" />
                 </div>
                 <span className="text-[11px] uppercase font-mono font-bold tracking-wider text-black">
                   Anonymitätsschutz aktiv (k-Anonymität ≥ 5)
                 </span>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-amber-100 text-amber-900 border border-amber-300">
+                <span className="text-[10px] font-mono font-bold px-2 py-0.5 bg-zinc-200 text-zinc-900 border border-zinc-300">
                   Ergebnisse gesperrt
                 </span>
               </div>
@@ -1129,7 +1129,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                       / 5 unterschiedliche Stimmen
                     </span>
                   </div>
-                  <div className="text-xs font-mono font-bold text-[#f10202]">
+                  <div className="text-xs font-mono font-bold text-black">
                     Noch {MIN_REQUIRED_CODES - distinctCodeCount} {MIN_REQUIRED_CODES - distinctCodeCount === 1 ? 'weiterer unterschiedlicher Code' : 'weitere unterschiedliche Codes'} benötigt
                   </div>
                 </div>
@@ -1146,7 +1146,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                           isDone
                             ? 'bg-black text-white border border-black'
                             : isNext
-                            ? 'bg-red-50 border-2 border-[#f10202] text-[#f10202]'
+                            ? 'bg-zinc-100 border-2 border-black text-black'
                             : 'bg-white border border-dashed border-[#ccc] text-[#999]'
                         }`}
                       >
@@ -1184,8 +1184,8 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
 
               {/* Invalid Warning */}
               {invalidCount > 0 && (
-                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-xs text-red-900 font-mono flex items-start gap-2.5">
-                  <AlertTriangle className="w-4 h-4 shrink-0 text-[#f10202] mt-0.5" />
+                <div className="mb-6 p-4 bg-zinc-100 border border-zinc-300 text-xs text-black font-mono flex items-start gap-2.5">
+                  <AlertTriangle className="w-4 h-4 shrink-0 text-black mt-0.5" />
                   <div>
                     <strong className="font-bold">{invalidCount} ungültige(r) Code(s):</strong>{' '}
                     Einige Codes konnten nicht decodiert werden und zählen nicht zur Mindestanzahl.
@@ -1220,7 +1220,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
           <div className="bg-white border border-[#e5e5e5] p-6">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-[#e5e5e5]">
               <div className="flex items-center gap-2">
-                <Lock className="w-3.5 h-3.5 text-[#f10202]" />
+                <Lock className="w-3.5 h-3.5 text-black" />
                 <h3 className="text-xs uppercase font-bold tracking-widest text-black">
                   Erfasste Einreichungen ({teamCodes.length})
                 </h3>
@@ -1261,7 +1261,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                   </div>
                   <button
                     onClick={() => onRemoveCode(entry.originalIndex ?? idx)}
-                    className="text-[#bbb] hover:text-[#f10202] transition-colors p-1 cursor-pointer"
+                    className="text-[#bbb] hover:text-black transition-colors p-1 cursor-pointer"
                     title="Code entfernen"
                   >
                     <Trash2 className="w-3 h-3" />
@@ -1285,7 +1285,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
           <div className="bg-white border border-black max-w-2xl w-full p-6 sm:p-8 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-[#e5e5e5]">
               <div className="flex items-center gap-2">
-                <Sparkles className="w-4 h-4 text-[#f10202]" />
+                <Sparkles className="w-4 h-4 text-black" />
                 <h3 className="text-xs uppercase font-bold tracking-widest text-black">
                   KI: Stimmungsbild auf &gt;80% anheben
                 </h3>
@@ -1300,7 +1300,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
 
             {isLoadingAi ? (
               <div className="py-12 text-center space-y-3">
-                <div className="w-6 h-6 border-2 border-[#f10202] border-t-transparent animate-spin mx-auto"></div>
+                <div className="w-6 h-6 border-2 border-black border-t-transparent animate-spin mx-auto"></div>
                 <p className="text-xs font-mono text-[#666]">
                   Gemini KI analysiert Fragen-Antwort-Muster und kalkuliert Hebel...
                 </p>
@@ -1312,7 +1312,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                   <div>
                     <div className="text-[10px] uppercase text-[#888] tracking-widest">Ausgangslage vs. Ziel</div>
                     <div className="text-2xl font-mono text-white font-light mt-0.5">
-                      {aiPlan.currentPercentage}% <span className="text-[#f10202]">→</span> {aiPlan.targetPercentage}%
+                      {aiPlan.currentPercentage}% <span className="text-zinc-400">→</span> {aiPlan.targetPercentage}%
                     </div>
                   </div>
                   <div className="text-right text-xs text-[#aaa] max-w-xs">
@@ -1333,12 +1333,12 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-xs font-bold text-black flex items-center gap-2">
-                          <span className="w-5 h-5 bg-[#f10202] text-white flex items-center justify-center text-[10px] font-mono">
+                          <span className="w-5 h-5 bg-black text-white flex items-center justify-center text-[10px] font-mono">
                             {act.priority}
                           </span>
                           <span>{act.title}</span>
                         </span>
-                        <span className="text-[10px] font-mono text-[#f10202] font-bold">
+                        <span className="text-[10px] font-mono text-black font-bold">
                           {act.potentialImpact}
                         </span>
                       </div>

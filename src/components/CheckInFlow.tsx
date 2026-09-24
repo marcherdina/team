@@ -123,7 +123,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
       particleCount: 70,
       spread: 60,
       origin: { y: 0.6 },
-      colors: ['#f10202', '#000000', '#737373']
+      colors: ['#000000', '#333333', '#737373', '#e5e5e5']
     });
   };
 
@@ -155,7 +155,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
     setTimeout(() => setCopiedPrivateId(false), 2000);
   };
 
-  // 1. INTRO STEP (Minimalist Audi clean style)
+  // 1. INTRO STEP (Minimalist clean style)
   if (step === 'intro') {
     const derivedPrivateId = initials.trim()
       ? deriveSecretIdFromInitials(initials, weekFactors)
@@ -172,9 +172,9 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-[#e5e5e5]">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#f10202] rounded-full"></div>
+              <div className="w-2 h-2 bg-black rounded-full"></div>
               <span className="text-xs uppercase font-bold tracking-widest text-black">
-                Audi IT Pulse
+                Team Pulse
               </span>
             </div>
             <span className="text-xs font-mono font-bold text-black">
@@ -205,7 +205,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
                   : 'text-[#666] hover:text-black'
               }`}
             >
-              <Sparkles className="w-3 h-3 text-[#f10202]" />
+              <Sparkles className="w-3 h-3 text-black" />
               <span>8 Zufällige Fragen</span>
             </button>
             <button
@@ -219,20 +219,20 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
                   : 'text-[#666] hover:text-black'
               }`}
             >
-              Vollständig (Alle 20 Fragen)
+              Vollständig (Alle {QUESTIONS_POOL.length} Fragen)
             </button>
           </div>
 
           {questionMode === 'random8' && (
             <div className="mb-4 flex items-center justify-between text-[11px] text-[#666] font-mono px-1">
-              <span>8 Fragen zufällig aus dem Pool von 20 Fragen gewählt</span>
+              <span>8 Fragen zufällig aus dem Pool von {QUESTIONS_POOL.length} Fragen gewählt</span>
               <button
                 type="button"
                 onClick={() => initNewSession('random8')}
-                className="flex items-center gap-1 text-[10px] uppercase font-bold text-black hover:text-[#f10202] transition-colors cursor-pointer"
+                className="flex items-center gap-1 text-[10px] uppercase font-bold text-black hover:text-[#555] transition-colors cursor-pointer"
                 title="8 neue Fragen aus dem Pool zufällig zusammenstellen"
               >
-                <RotateCcw className="w-2.5 h-2.5 text-[#f10202]" />
+                <RotateCcw className="w-2.5 h-2.5 text-black" />
                 <span>Fragen neu mischen</span>
               </button>
             </div>
@@ -242,7 +242,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
           <div className="bg-[#f9f9f9] border border-[#e5e5e5] p-5 my-6">
             <div className="flex items-center justify-between gap-3 mb-2">
               <label htmlFor="user-initials-input" className="text-xs font-bold uppercase tracking-wider text-black flex items-center gap-1.5">
-                <Lock className="w-3.5 h-3.5 text-[#f10202]" />
+                <Lock className="w-3.5 h-3.5 text-black" />
                 <span>Dein Namenskürzel (z.B. MM für Max Mustermann)</span>
               </label>
               <span className="text-[10px] text-[#888] font-mono">Empfohlen</span>
@@ -263,7 +263,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
                   <div>
                     In Teams sendest du: <span className="font-mono font-bold text-black bg-white px-1.5 py-0.5 border border-[#ddd]">397-{initials.trim().toUpperCase()}-...</span>
                     <div className="text-[11px] text-[#888] mt-1">
-                      In der Teamrunde wird daraus automatisch deine Private ID: <span className="font-mono font-bold text-[#f10202]">#{derivedPrivateId}</span>
+                      In der Teamrunde wird daraus automatisch deine Private ID: <span className="font-mono font-bold text-black">#{derivedPrivateId}</span>
                     </div>
                   </div>
                 ) : (
@@ -287,7 +287,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
                   onClick={() => setSecretId(generateSecretId())}
                   className="flex items-center gap-1 text-[10px] uppercase font-bold text-[#666] hover:text-black cursor-pointer"
                 >
-                  <RotateCcw className="w-2.5 h-2.5 text-[#f10202]" />
+                  <RotateCcw className="w-2.5 h-2.5 text-black" />
                   <span>Neu würfeln</span>
                 </button>
               )}
@@ -301,7 +301,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
             className="w-full bg-black hover:bg-[#1a1a1a] text-white text-xs uppercase tracking-widest font-bold py-4 px-6 flex items-center justify-center gap-2 transition-all cursor-pointer"
           >
             <span>Starten</span>
-            <ArrowRight className="w-4 h-4 text-[#f10202]" />
+            <ArrowRight className="w-4 h-4 text-white" />
           </button>
 
           <div className="mt-6 pt-3 border-t border-[#e5e5e5] flex items-center justify-between text-[10px] uppercase tracking-widest text-[#999]">
@@ -326,7 +326,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
         {/* Progress & Header */}
         <div className="mb-4 flex items-center justify-between border-b border-[#e5e5e5] pb-3">
           <div className="flex items-center gap-2">
-            <div className="w-2 h-2 bg-[#f10202] rounded-full"></div>
+            <div className="w-2 h-2 bg-black rounded-full"></div>
             <span className="text-xs uppercase font-bold tracking-widest text-black">
               #{secretId}
             </span>
@@ -342,7 +342,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
         {/* Minimal Progress Bar */}
         <div className="h-1 w-full bg-[#e5e5e5] mb-6 overflow-hidden">
           <motion.div
-            className="h-full bg-[#f10202]"
+            className="h-full bg-black"
             initial={{ width: 0 }}
             animate={{ width: `${progressPercent}%` }}
             transition={{ duration: 0.2 }}
@@ -361,7 +361,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
           >
             {/* Tag & Category */}
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-[#f10202]">
+              <span className="text-[10px] uppercase tracking-widest font-bold text-black">
                 {currentQ.categoryLabel}
               </span>
               <span className="text-[10px] font-mono text-[#888] bg-[#f5f5f5] px-1.5 py-0.5 border border-[#e5e5e5]">
@@ -402,7 +402,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
 
                     <div>
                       {isSelected ? (
-                        <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 bg-[#f10202] text-white tracking-widest">
+                        <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 bg-white text-black tracking-widest">
                           ✓
                         </span>
                       ) : (
@@ -442,7 +442,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
                   }`}
                 >
                   <span>Zur Custom Frage</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#f10202]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
                 </button>
               ) : (
                 <button
@@ -485,8 +485,8 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
           {/* Header */}
           <div className="flex items-center justify-between pb-3 border-b border-[#e5e5e5]">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#f10202] rounded-full"></div>
-              <span className="text-xs uppercase font-bold tracking-widest text-[#f10202]">
+              <div className="w-2 h-2 bg-black rounded-full"></div>
+              <span className="text-xs uppercase font-bold tracking-widest text-black">
                 Zusatz-Abstimmung
               </span>
             </div>
@@ -520,7 +520,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className={`text-xs font-mono font-bold ${isSelected ? 'text-[#f10202]' : 'text-black'}`}>
+                    <span className={`text-xs font-mono font-bold ${isSelected ? 'text-white' : 'text-black'}`}>
                       {opt.points}
                     </span>
                     <span className="text-xs sm:text-sm font-medium">
@@ -533,7 +533,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
 
                   <div>
                     {isSelected ? (
-                      <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 bg-[#f10202] text-white">
+                      <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 bg-white text-black">
                         ✓
                       </span>
                     ) : (
@@ -549,7 +549,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
           <div className="mb-6 p-4 bg-[#f9f9f9] border border-[#e5e5e5]">
             <div className="flex items-center justify-between mb-2">
               <label className="text-[10px] uppercase tracking-widest font-bold text-black flex items-center gap-1.5">
-                <MessageSquare className="w-3 h-3 text-[#f10202]" />
+                <MessageSquare className="w-3 h-3 text-black" />
                 <span>Feedback / Stimmung (Wird verschlüsselt)</span>
               </label>
               <span className="text-[10px] font-mono text-[#888]">
@@ -616,7 +616,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
               onClick={handleSubmitCustom}
               className={`flex-1 py-3.5 text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2 transition-all cursor-pointer ${
                 customPoints !== null
-                  ? 'bg-[#f10202] hover:bg-[#d00202] text-white'
+                  ? 'bg-black hover:bg-[#222222] text-white'
                   : 'bg-[#e5e5e5] text-[#999] cursor-not-allowed'
               }`}
             >
@@ -642,8 +642,8 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
           {/* Header */}
           <div className="flex items-center justify-between pb-4 border-b border-[#e5e5e5]">
             <div className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#f10202] rounded-full"></div>
-              <span className="text-xs uppercase font-bold tracking-widest text-[#f10202]">
+              <div className="w-2 h-2 bg-black rounded-full"></div>
+              <span className="text-xs uppercase font-bold tracking-widest text-black">
                 Check-In Abgeschlossen
               </span>
             </div>
@@ -665,7 +665,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
           <div className="bg-[#f9f9f9] border-2 border-black p-5 sm:p-6 mb-6">
             <div className="flex items-center justify-between pb-3 border-b border-[#e5e5e5]">
               <div className="flex items-center gap-2">
-                <Lock className="w-3.5 h-3.5 text-[#f10202]" />
+                <Lock className="w-3.5 h-3.5 text-black" />
                 <span className="text-xs uppercase font-bold tracking-wider text-black">
                   1. Deine geheime Private ID (Nur für dich!)
                 </span>
@@ -683,11 +683,11 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
                 <p className="text-xs text-[#555] mt-2 leading-relaxed max-w-md">
                   {resultData.publicId !== resultData.privateId ? (
                     <>
-                      Du hast das Kürzel <strong className="text-black font-mono">{resultData.publicId}</strong> verwendet. In der Teamrunde auf dem Screen rechnet das Dashboard dein Kürzel automatisch wieder in <strong className="text-[#f10202] font-mono">#{resultData.privateId}</strong> um.
+                      Du hast das Kürzel <strong className="text-black font-mono">{resultData.publicId}</strong> verwendet. In der Teamrunde auf dem Screen rechnet das Dashboard dein Kürzel automatisch wieder in <strong className="text-black font-mono font-bold">#{resultData.privateId}</strong> um.
                     </>
                   ) : (
                     <>
-                      In der Teamrunde siehst du deine Bewertung anonym unter der ID <strong className="text-[#f10202] font-mono">#{resultData.privateId}</strong>.
+                      In der Teamrunde siehst du deine Bewertung anonym unter der ID <strong className="text-black font-mono font-bold">#{resultData.privateId}</strong>.
                     </>
                   )}
                   {' '}So erkennst nur du dein eigenes Feedback, während deine Kollegen nur die Private ID sehen!
@@ -758,7 +758,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
                 className={`py-3 px-5 border text-xs uppercase tracking-widest font-bold transition-all cursor-pointer shrink-0 flex items-center justify-center gap-2 ${
                   copiedTeamsToken
                     ? 'bg-[#16a34a] border-[#16a34a] text-white'
-                    : 'bg-white text-black border-white hover:bg-[#f10202] hover:text-white hover:border-[#f10202]'
+                    : 'bg-white text-black border-white hover:bg-black hover:text-white hover:border-black'
                 }`}
               >
                 {copiedTeamsToken ? (
@@ -782,7 +782,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
               <span className="text-xs uppercase font-bold tracking-widest text-black">
                 Persönlicher Schnitt
               </span>
-              <span className="text-sm font-mono font-bold text-[#f10202]">
+              <span className="text-sm font-mono font-bold text-black">
                 Ø {resultData.averageScore} / 5.0
               </span>
             </div>
@@ -812,7 +812,7 @@ export const CheckInFlow: React.FC<CheckInFlowProps> = ({
               className="flex-1 py-3.5 bg-black hover:bg-[#1a1a1a] text-white text-xs uppercase tracking-widest font-bold flex items-center justify-center gap-2 cursor-pointer transition-all"
             >
               <span>Zur Team-Runde</span>
-              <ArrowRight className="w-4 h-4 text-[#f10202]" />
+              <ArrowRight className="w-4 h-4 text-white" />
             </button>
 
             <button

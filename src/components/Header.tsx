@@ -27,23 +27,20 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#e5e5e5] transition-all">
       <div className="max-w-6xl mx-auto px-4 sm:px-10 h-20 flex items-center justify-between">
         
-        {/* Audi Brand Identity */}
-        <div className="flex items-center gap-4 sm:gap-8">
-          {/* Overlapping Audi 4 Rings */}
-          <div className="flex space-x-[-8px] items-center" title="Audi IT">
-            <div className="w-7 h-7 rounded-full border-2 border-black bg-transparent"></div>
-            <div className="w-7 h-7 rounded-full border-2 border-black bg-transparent"></div>
-            <div className="w-7 h-7 rounded-full border-2 border-black bg-transparent"></div>
-            <div className="w-7 h-7 rounded-full border-2 border-black bg-transparent"></div>
+        {/* Team Pulse Brand Identity */}
+        <div className="flex items-center gap-3 sm:gap-4">
+          {/* Minimalist Geometric Logo Mark */}
+          <div className="w-8 h-8 bg-black text-white flex items-center justify-center font-mono font-bold text-xs tracking-wider border border-black shadow-xs" title="Team Pulse">
+            TP
           </div>
 
           <div className="flex flex-col">
             <span className="text-xs uppercase tracking-[0.2em] font-bold text-black flex items-center gap-1.5">
-              Audi IT
-              <span className="w-1.5 h-1.5 rounded-full bg-[#f10202] inline-block" />
+              Team Pulse
+              <span className="w-1.5 h-1.5 rounded-full bg-black inline-block" />
             </span>
             <span className="text-[10px] uppercase tracking-[0.1em] text-[#666]">
-              Team Pulse / KW {weekFactors.kw}
+              Check-In & Retrospektive / KW {weekFactors.kw}
             </span>
           </div>
         </div>
@@ -64,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'bg-white text-black border-[#e5e5e5] hover:border-black'
               }`}
             >
-              <CheckCircle2 className={`w-3.5 h-3.5 ${activeTab === 'checkin' ? 'text-[#f10202]' : 'text-black'}`} />
+              <CheckCircle2 className={`w-3.5 h-3.5 ${activeTab === 'checkin' ? 'text-white' : 'text-black'}`} />
               <span>Check-In</span>
             </button>
 
@@ -77,14 +74,14 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'bg-white text-black border-[#e5e5e5] hover:border-black'
               }`}
             >
-              <BarChart3 className={`w-3.5 h-3.5 ${activeTab === 'team' ? 'text-[#f10202]' : 'text-black'}`} />
+              <BarChart3 className={`w-3.5 h-3.5 ${activeTab === 'team' ? 'text-white' : 'text-black'}`} />
               <span>Team-Runde</span>
               {teamCount > 0 && (
                 <span
                   className={`${
                     (distinctTeamCount ?? teamCount) >= 5
                       ? 'bg-[#16a34a]'
-                      : 'bg-[#f10202]'
+                      : 'bg-[#333333]'
                   } text-white text-[10px] font-mono font-bold px-1.5 py-0.5`}
                   title={`${distinctTeamCount ?? teamCount} unterschiedliche Codes (Mindestens 5 für Auswertung erforderlich)`}
                 >
@@ -104,7 +101,7 @@ export const Header: React.FC<HeaderProps> = ({
                   : 'bg-white text-black border-[#e5e5e5] hover:border-black'
               }`}
             >
-              <TrendingUp className={`w-3.5 h-3.5 ${activeTab === 'analyze' ? 'text-[#f10202]' : 'text-black'}`} />
+              <TrendingUp className={`w-3.5 h-3.5 ${activeTab === 'analyze' ? 'text-white' : 'text-black'}`} />
               <span>Analyse</span>
               {savedWeeksCount !== undefined && savedWeeksCount > 0 && (
                 <span className="bg-[#444] text-white text-[10px] font-mono font-bold px-1.5 py-0.5">
@@ -137,7 +134,7 @@ export const Header: React.FC<HeaderProps> = ({
             title="Geheimer Wochen-Algorithmus & Datenschutz"
             aria-label="Algorithmus Details"
           >
-            <ShieldCheck className="w-4 h-4 text-[#f10202]" />
+            <ShieldCheck className="w-4 h-4 text-black" />
           </button>
         </div>
 

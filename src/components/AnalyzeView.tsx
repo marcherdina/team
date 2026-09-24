@@ -208,7 +208,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
 
     const tokens = extractWeeklyTokensFromText(bulkInput);
     if (tokens.length === 0) {
-      setInputError('Keine gültigen Wochencodes erkannt. Format z.B. AUDI-W37-2026-...');
+      setInputError('Keine gültigen Wochencodes erkannt. Format z.B. PULSE-W37-2026-...');
       return;
     }
 
@@ -226,7 +226,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
     const code = singleInput.trim();
     const test = decodeWeeklyResultCode(code);
     if (!test) {
-      setInputError('Ungültiger Wochencode. Bitte Format prüfen (z.B. AUDI-W37-2026-...)');
+      setInputError('Ungültiger Wochencode. Bitte Format prüfen (z.B. PULSE-W37-2026-...)');
       return;
     }
 
@@ -255,7 +255,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-[#e5e5e5]">
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[10px] uppercase font-mono font-bold tracking-[0.2em] text-[#f10202] bg-[#f10202]/10 px-2 py-0.5">
+            <span className="text-[10px] uppercase font-mono font-bold tracking-[0.2em] text-white bg-black px-2 py-0.5">
               Zeitverlauf & Analyse
             </span>
             <span className="text-xs text-[#666] font-mono">•</span>
@@ -282,7 +282,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
                 : 'bg-white text-black border-[#e5e5e5] hover:border-black'
             }`}
           >
-            <Plus className="w-3.5 h-3.5 text-[#f10202]" />
+            <Plus className={`w-3.5 h-3.5 ${isInputOpen ? 'text-white' : 'text-black'}`} />
             <span>{isInputOpen ? 'Eingabe schließen' : 'Codes einfügen'}</span>
           </button>
 
@@ -292,7 +292,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
             className="px-3.5 py-2 border border-[#e5e5e5] hover:border-black text-xs uppercase tracking-wider font-bold text-black bg-white transition-all cursor-pointer flex items-center gap-1.5"
             title="6 Wochen historische Testdaten laden"
           >
-            <Sparkles className="w-3.5 h-3.5 text-[#f10202]" />
+            <Sparkles className="w-3.5 h-3.5 text-black" />
             <span>6W Demo</span>
           </button>
 
@@ -320,7 +320,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
               <button
                 type="button"
                 onClick={onClearAll}
-                className="px-3.5 py-2 border border-[#e5e5e5] hover:border-[#f10202] hover:text-[#f10202] text-xs uppercase tracking-wider font-bold text-[#666] bg-white transition-all cursor-pointer"
+                className="px-3.5 py-2 border border-[#e5e5e5] hover:border-black hover:text-black text-xs uppercase tracking-wider font-bold text-[#666] bg-white transition-all cursor-pointer"
                 title="Alle gespeicherten Wochen löschen"
               >
                 Leeren
@@ -335,7 +335,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
         <div className="my-6 p-5 bg-[#fafafa] border border-[#e5e5e5] transition-all">
           <div className="flex items-center justify-between gap-3 mb-3">
             <div className="flex items-center gap-2">
-              <FileCode className="w-4 h-4 text-[#f10202]" />
+              <FileCode className="w-4 h-4 text-black" />
               <span className="text-xs font-bold uppercase tracking-wider text-black">
                 Wochen-Ergebniscodes importieren
               </span>
@@ -368,7 +368,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
           </div>
 
           <p className="text-xs text-[#666] mb-3 leading-relaxed">
-            Kopiere den generierten Wochencode aus der Team-Runde hier hinein (z.B. <code className="bg-[#eee] px-1 py-0.5 text-black">AUDI-W37-2026-ey...</code>). Jeder Code enthält das aggregierte, anonyme Teamergebnis einer Woche.
+            Kopiere den generierten Wochencode aus der Team-Runde hier hinein (z.B. <code className="bg-[#eee] px-1 py-0.5 text-black">PULSE-W37-2026-ey...</code>). Jeder Code enthält das aggregierte, anonyme Teamergebnis einer Woche.
           </p>
 
           {inputMode === 'bulk' ? (
@@ -380,7 +380,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
                   setBulkInput(e.target.value);
                   setInputError(null);
                 }}
-                placeholder={`Wochencodes einfügen (ein Code pro Zeile):\nAUDI-W35-2026-eyJ2IjoxLCJ5IjoyMDI2LCJ3IjozNS... \nAUDI-W36-2026-eyJ2IjoxLCJ5IjoyMDI2LCJ3IjozNi... \nAUDI-W37-2026-eyJ2IjoxLCJ5IjoyMDI2LCJ3IjozNy...`}
+                placeholder={`Wochencodes einfügen (ein Code pro Zeile):\nPULSE-W35-2026-eyJ2IjoxLCJ5IjoyMDI2LCJ3IjozNS... \nPULSE-W36-2026-eyJ2IjoxLCJ5IjoyMDI2LCJ3IjozNi... \nPULSE-W37-2026-eyJ2IjoxLCJ5IjoyMDI2LCJ3IjozNy...`}
                 className="w-full bg-white border border-[#ccc] focus:border-black p-3 text-xs font-mono text-black outline-none leading-relaxed transition-colors"
               />
 
@@ -411,7 +411,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
                   setSingleInput(e.target.value);
                   setInputError(null);
                 }}
-                placeholder="Einzelnen Wochencode eingeben (z.B. AUDI-W37-2026-...)"
+                placeholder="Einzelnen Wochencode eingeben (z.B. PULSE-W37-2026-...)"
                 className="flex-1 bg-white border border-[#ccc] focus:border-black px-3 py-2 text-xs font-mono text-black outline-none"
               />
               <button
@@ -425,7 +425,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
           )}
 
           {inputError && (
-            <div className="mt-2.5 text-xs text-[#f10202] font-mono flex items-center gap-1.5">
+            <div className="mt-2.5 text-xs text-black font-mono flex items-center gap-1.5 p-2 bg-[#f0f0f0] border border-[#ccc]">
               <AlertTriangle className="w-3.5 h-3.5 shrink-0" />
               <span>{inputError}</span>
             </div>
@@ -526,7 +526,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
               <div className="text-sm sm:text-base font-bold text-black truncate mt-1">
                 {metrics.lowestCategory ? metrics.lowestCategory.label : '—'}
               </div>
-              <div className="text-xs text-[#f10202] font-mono font-bold mt-0.5">
+              <div className="text-xs text-black font-mono font-bold mt-0.5">
                 {metrics.lowestCategory ? `Ø ${metrics.lowestCategory.avg} / 5.0` : '—'}
               </div>
               <div className="text-[10px] text-[#888] mt-2 font-mono">
@@ -540,7 +540,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
               <div>
                 <h3 className="text-sm font-bold uppercase tracking-wider text-black flex items-center gap-2">
-                  <TrendingUp className="w-4 h-4 text-[#f10202]" />
+                  <TrendingUp className="w-4 h-4 text-black" />
                   <span>Entwicklung Team-Pulse (Gesamtstimmung)</span>
                 </h3>
                 <p className="text-xs text-[#666] mt-0.5">
@@ -550,7 +550,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
 
               <div className="flex items-center gap-4 text-xs font-mono">
                 <div className="flex items-center gap-1.5">
-                  <span className="w-3 h-0.5 bg-[#f10202]" />
+                  <span className="w-3 h-0.5 bg-black" />
                   <span className="text-black font-bold">Team-Puls</span>
                 </div>
                 <div className="flex items-center gap-1.5">
@@ -564,9 +564,9 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={chartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                   <defs>
-                    <linearGradient id="audiPulseGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="#f10202" stopOpacity={0.25} />
-                      <stop offset="95%" stopColor="#f10202" stopOpacity={0.0} />
+                    <linearGradient id="teamPulseGradient" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="5%" stopColor="#000000" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#000000" stopOpacity={0.0} />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" vertical={false} />
@@ -597,7 +597,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
                             <div className="space-y-1">
                               <div className="flex justify-between gap-4">
                                 <span className="text-zinc-400">Score:</span>
-                                <span className="text-[#f10202] font-bold">Ø {data.score} / 5.0</span>
+                                <span className="text-white font-bold">Ø {data.score} / 5.0</span>
                               </div>
                               <div className="flex justify-between gap-4">
                                 <span className="text-zinc-400">Puls:</span>
@@ -629,12 +629,12 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
                   <Area
                     type="monotone"
                     dataKey="score"
-                    stroke="#f10202"
-                    strokeWidth={3}
+                    stroke="#000000"
+                    strokeWidth={2.5}
                     fillOpacity={1}
-                    fill="url(#audiPulseGradient)"
-                    dot={{ r: 5, fill: '#f10202', stroke: '#fff', strokeWidth: 2 }}
-                    activeDot={{ r: 7, fill: '#000', stroke: '#f10202', strokeWidth: 2 }}
+                    fill="url(#teamPulseGradient)"
+                    dot={{ r: 4.5, fill: '#000000', stroke: '#fff', strokeWidth: 2 }}
+                    activeDot={{ r: 6.5, fill: '#000000', stroke: '#fff', strokeWidth: 2 }}
                   />
                 </AreaChart>
               </ResponsiveContainer>
@@ -864,7 +864,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
                         )}
                         {w.topTopic && w.lowestTopic && <span> • </span>}
                         {w.lowestTopic && (
-                          <span className="text-[#f10202]">▼ {w.lowestTopic}</span>
+                          <span className="text-zinc-600 font-bold">▼ {w.lowestTopic}</span>
                         )}
                       </td>
                       <td className="py-3 pl-3 text-right whitespace-nowrap">
@@ -879,7 +879,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
                         <button
                           type="button"
                           onClick={() => onRemoveCode(idx)}
-                          className="p-1 text-[#999] hover:text-[#f10202] transition-colors cursor-pointer inline-flex items-center"
+                          className="p-1 text-[#999] hover:text-black transition-colors cursor-pointer inline-flex items-center"
                           title="Woche entfernen"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -895,7 +895,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
       ) : (
         /* Empty State */
         <div className="my-12 p-8 sm:p-12 text-center bg-white border border-[#e5e5e5]">
-          <div className="w-12 h-12 rounded-full bg-[#f10202]/10 text-[#f10202] flex items-center justify-center mx-auto mb-4">
+          <div className="w-12 h-12 bg-black text-white flex items-center justify-center mx-auto mb-4">
             <TrendingUp className="w-6 h-6" />
           </div>
           <h2 className="text-base sm:text-lg font-bold uppercase tracking-wider text-black">
@@ -911,7 +911,7 @@ export const AnalyzeView: React.FC<AnalyzeViewProps> = ({
               onClick={onLoadSampleData}
               className="px-5 py-2.5 bg-black hover:bg-[#222] text-white text-xs uppercase font-mono font-bold tracking-wider transition-colors cursor-pointer flex items-center gap-2"
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#f10202]" />
+              <Sparkles className="w-3.5 h-3.5 text-white" />
               <span>6 Wochen Beispieldaten laden</span>
             </button>
 
